@@ -110,5 +110,67 @@ genre_based_recommendations('Zombieland (2009)')
 654     Tales from the Crypt Presents: Bordello of Blo...
 1478                                      Gremlins (1984)
 ```
+**LightFM**
+One great recommender model I found was LightFM, this recommender utilizes weighted approximately ranked pairwise (WARP) ranking loss. This makes the ranked items at the top more accurate than those on the bottom which is what you would want in a recommender system. Here the recommender is based three userIds and returns recommendations based on the known positives or what the user may have watched and ranked. LightFM is also considered a hybrid recommender meaning it can handle cold start problems and collaborative filtering. 
+```python
+from lightfm.datasets import fetch_movielens
+from lightfm import LightFM
+
+data = fetch_movielens(min_rating= 1)
+
+model = LightFM(loss='warp')
+model.fit(data['train'], epochs=30, num_threads= 4)
+
+sample_recommendation(model, data, [6, 8, 11])
+
+User 6
+    known positives:
+      Get Shorty (1995)
+      Twelve Monkeys (1995)
+      Babe (1995)
+    Recommended:
+         Raiders of the Lost Ark (1981)
+         Jaws (1975)
+         Psycho (1960)
+         Sting, The (1973)
+         Alien (1979)
+         Silence of the Lambs, The (1991)
+         Taxi Driver (1976)
+         Aliens (1986)
+         Good, The Bad and The Ugly, The (1966)
+         M*A*S*H (1970)
+User 8
+    known positives:
+      Twelve Monkeys (1995)
+      Star Wars (1977)
+      Evil Dead II (1987)
+    Recommended:
+         Star Wars (1977)
+         Fargo (1996)
+         Return of the Jedi (1983)
+         Godfather, The (1972)
+         English Patient, The (1996)
+         Raiders of the Lost Ark (1981)
+         Contact (1997)
+         Liar Liar (1997)
+         Toy Story (1995)
+         Scream (1996)
+User 11
+    known positives:
+      Get Shorty (1995)
+      Mr. Holland's Opus (1995)
+      Apollo 13 (1995)
+    Recommended:
+         Star Wars (1977)
+         Raiders of the Lost Ark (1981)
+         Return of the Jedi (1983)
+         Back to the Future (1985)
+         Fargo (1996)
+         Silence of the Lambs, The (1991)
+         E.T. the Extra-Terrestrial (1982)
+         Schindler's List (1993)
+         Pulp Fiction (1994)
+         Forrest Gump (1994)
+```
 #### Future work:
-Deeper study into neural network recommendation systems through pytorch via Nvidia cuda (gpu processing) and tinkering with the various loss functions: mean absolute error, mean square error, smooth L1 loss, negative log-likeihood loss, cross-entropy loss, kullback-leibler divergence, marging ranking loss, hinge embedding loss, and cosine embedding loss. 
+Deeper study into neural network recommendation systems through pytorch via Nvidia cuda (gpu processing) and tinkering with the various loss functions and actual implementation via AWS or some other well known platform, this is waaaay cool! 
